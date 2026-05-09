@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { CreateExpense } from "../../api/expenseApi";
-import { useNavigate } from "react-router";
 
 type Props = {
     open: boolean;
     onClose: () => void;
     onSubmit: (data: any) => void;
     loading?: boolean;
+    initialData?: any;
+
 };
 
-export default function ExpenseModal({ open, onClose, onSubmit, loading }: Props) {
+export default function ExpenseModal({ open, onClose, onSubmit, loading, initialData }: Props) {
     const [form, setForm] = useState({
     type: "income",
     amount: "",
@@ -38,6 +38,18 @@ export default function ExpenseModal({ open, onClose, onSubmit, loading }: Props
         });
     }
     }, [open]);
+
+    useEffect(() => {
+      if (initialData) {
+        setForm({
+          type: initialData.type,
+          amount: initialData.amount.toString(),
+          category: initialData.category,
+          description: initialData.description,
+          currency: initialData.currency,
+        });
+      }
+    }, [initialData]);
 
   if (!open) return null;
 
@@ -114,7 +126,13 @@ export default function ExpenseModal({ open, onClose, onSubmit, loading }: Props
             disabled={loading}
             className="bg-blue-500 hover:bg-blue-600 flex-1 py-2 rounded"
           >
-           {loading ? "Adding..." : "Add Transaction"}
+           {loading ? 
+           initialData
+              ? "Updating..."
+              : "Adding..."
+            : initialData
+            ? "Update Transaction"
+            : "Add Transaction"}
           </button>
 
           <button

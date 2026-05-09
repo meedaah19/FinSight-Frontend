@@ -65,14 +65,14 @@ export async function DeleteExpense(id: string){
 }
 
 
-export async function UpdateExpense(id: string, data: any) {
+export async function UpdateExpense(id: string, updatedData: any) {
   const res = await fetch(`http://localhost:5000/expenses/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(updatedData),
   });
 
   const result = await res.json();

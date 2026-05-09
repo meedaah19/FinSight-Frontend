@@ -57,6 +57,10 @@ export default function Sidebar() {
 
             <nav className="flex flex-col gap-4">
             <button className="text-left hover:text-blue-400">
+                Profile
+            </button>
+
+            <button className="text-left hover:text-blue-400">
                 Overview
             </button>
 
