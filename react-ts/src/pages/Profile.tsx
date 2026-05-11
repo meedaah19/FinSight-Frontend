@@ -19,7 +19,6 @@ export default function Profile() {
 
   const fetchProfile = async () => {
     const data = await GetProfile();
-    console.log(data)
     setUser(data);
 
     setForm({

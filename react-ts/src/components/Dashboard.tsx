@@ -1,4 +1,23 @@
+import { useEffect, useState } from "react";
+import { GetExpenses } from "../api/expenseApi";
+
 export default function DashboardOverview() {
+  const [expense, setExpense] = useState<any>(null)
+
+ const fetchUser = async () => {
+  try {
+    const data = await GetExpenses()
+    console.log(data)
+      setExpense(data)
+  } catch (error: any) {
+    alert(error.message || 'Unable to fetch ')
+  }
+ }
+
+ useEffect(() => {
+  fetchUser()
+ }, [])
+
   return (
     <div >
       {/* Main Content */}

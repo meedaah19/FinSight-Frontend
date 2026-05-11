@@ -68,7 +68,7 @@ export default function Expenses() {
         const timer = setTimeout(() => {
         setSuccess(null);
         setError(null);
-        }, 5000);
+        }, 3000);
 
         return () => clearTimeout(timer);
     }
