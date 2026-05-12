@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { DeleteProfile, GetProfile, UpdateProfile } from "../api/userApi";
 import Success from "../components/Modals/Success";
 import Error from "../components/Modals/Error";
+import Sidebar from "../components/Sidebar";
 
 export default function Profile() {
   const [user, setUser] = useState<any>(null);
@@ -82,8 +83,11 @@ export default function Profile() {
   if (!user) return <p>Loading...</p>;
 
   return (
-    <div className="p-6 text-white max-w-4xl mx-auto">
-      <h2 className="text-2xl mb-6">Profile</h2>
+    <div className="flex min-h-screen bg-[#0B132B] text-gray-200">
+      <Sidebar/>
+   
+    <div className="p-8 font-semibold">
+      <h2 className="text-2xl font-semibold mb-6">Profile</h2>
 
       {!editing ? (
         <div className="bg-[#1C2541] p-6 rounded-lg">
@@ -160,5 +164,6 @@ export default function Profile() {
         </form>
       )}
     </div>
+     </div>
   );
 }

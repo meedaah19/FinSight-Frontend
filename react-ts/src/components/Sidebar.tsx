@@ -71,14 +71,17 @@ export default function Sidebar() {
             </h1>
 
             <nav className="flex flex-col gap-4">
+
             <button 
+            onClick={() => navigate("/dashboard")}
+            className="text-left hover:text-blue-400">
+                Overview
+            </button>
+
+             <button 
             onClick={() => navigate("/dashboard/profile")}
             className="text-left hover:text-blue-400">
                 Profile
-            </button>
-
-            <button className="text-left hover:text-blue-400">
-                Overview
             </button>
 
             <button 
