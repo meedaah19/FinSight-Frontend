@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router";
 import {login} from "../api/userApi";
 import Error from "../components/Modals/Error";
 import Success from "../components/Modals/Success";
+import { PageLoading } from "../components/Animations/Animation";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ export default function Login() {
 }, [success, error, navigate]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <PageLoading className="min-h-screen flex items-center justify-center px-4">
 
       {error && (
               <Error
@@ -120,6 +121,6 @@ export default function Login() {
 
       </motion.div>
 
-    </div>
+    </PageLoading>
   );
 }

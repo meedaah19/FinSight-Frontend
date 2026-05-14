@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Success from "./Modals/Success";
 import Error from "./Modals/Error";
 import { Logout } from "../api/userApi";
+import { motion } from "framer-motion";
 
 export default function Sidebar() {
     const navigate = useNavigate()
@@ -66,7 +67,7 @@ export default function Sidebar() {
         {success && <Success title="Success" description={success} />}
         {error && <Error title="Error" description={error} />}
         {warning && <Error title="Warning" description={warning} />}
-        <aside className="w-64 bg-[#1C2541] p-6 flex flex-col gap-6">
+        <aside className="w-64 fixed left-0 top-0 h-screen bg-[#1C2541] p-6 flex flex-col gap-6">
             <h1 className="text-xl font-bold text-white">
             Smart Expense
             </h1>
@@ -97,11 +98,13 @@ export default function Sidebar() {
                 Analytics
             </button>
             </nav>
-            <button 
+            <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }} 
             onClick={() => setOpen(true)}
             className="mt-auto bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg">
             + Add Expense
-            </button>
+            </motion.button>
             <button
             onClick={handleLogout}
             className="text-left hover:text-blue-400"

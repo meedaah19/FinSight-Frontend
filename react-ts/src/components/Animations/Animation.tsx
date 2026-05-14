@@ -34,8 +34,9 @@ const item = {
 };
 
 const container = {
-  hidden: {},
+  hidden: { opacity: 0 },
   show: {
+    opacity: 1,
     transition: {
       staggerChildren: 0.15,
     },
@@ -81,8 +82,7 @@ export function RevealGroup({ children, className }: RevealGroupProps) {
     <motion.div
       variants={container}
       initial="hidden"
-      whileInView="show"
-      viewport={{ once: true }}
+      animate="show"
       className={className}
     >
       {children}

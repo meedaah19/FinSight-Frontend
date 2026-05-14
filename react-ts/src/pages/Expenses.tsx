@@ -4,6 +4,8 @@ import ExpenseModal from "../components/Modals/ExpenseModal";
 import Success from "../components/Modals/Success";
 import Error from "../components/Modals/Error";
 import Sidebar from "../components/Sidebar";
+import { PageLoading, RevealGroup, RevealItem } from "../components/Animations/Animation";
+import { motion } from "framer-motion";
 
 export default function Expenses() {
   const [expenses, setExpenses] = useState<any[]>([]);
@@ -76,18 +78,18 @@ export default function Expenses() {
     }, [success, error]);
 
   return (
-    <div className="flex min-h-screen bg-[#0B132B] text-gray-200">
+    <PageLoading className="flex min-h-screen bg-[#0B132B] text-gray-200">
           <Sidebar/>
-    <div className="flex-1 p-8 ">
+    <div className="flex-1 p-8 ml-64 ">
       <h2 className="text-2xl font-semibold mb-4">All Expenses</h2>
        {success && <Success title="Success" description={success} />}
        {error && <Error title="Error" description={error} />}
-      <div className="space-y-3">
+      <RevealGroup className="space-y-3">
         {expenses.length === 0 ? (
           <p>No expenses yet</p>
         ) : (
           expenses.map((exp) => (
-            <div
+            <RevealItem
               key={exp._id}
               className="bg-[#1C2541] p-4 rounded-lg flex justify-between items-center"
             >
@@ -101,7 +103,9 @@ export default function Expenses() {
               </div>
 
               <div className="flex gap-2">
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => {
                     setSelectedExpense(exp);
                     setOpenEditModal(true);
@@ -109,16 +113,18 @@ export default function Expenses() {
                   className="bg-yellow-500 px-3 py-1 rounded"
                 >
                   Edit
-                </button>
+                </motion.button>
 
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => handleDelete(exp._id)}
                   className="bg-red-500 px-3 py-1 rounded"
                 >
                   {loading ? "Deleting..." : "Delete"}
-                </button>
+                </motion.button>
               </div>
-            </div>
+            </RevealItem>
           ))
         )}
 
@@ -131,9 +137,9 @@ export default function Expenses() {
             loading={loading}
           />
         )}
-      </div>
+      </RevealGroup>
     </div>
-    </div>
+    </PageLoading>
 
   );
 }

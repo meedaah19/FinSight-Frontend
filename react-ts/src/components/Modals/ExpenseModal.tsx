@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 type Props = {
     open: boolean;
@@ -54,10 +55,17 @@ export default function ExpenseModal({ open, onClose, onSubmit, loading, initial
   if (!open) return null;
 
   return (
-    <div 
+    <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }} 
     className="fixed inset-0 bg-black/20 backdrop-blur flex items-center justify-center z-50">
       
-      <div className="bg-[#1C2541] p-6 rounded-xl w-100 text-white">
+      <motion.div
+      initial={{ scale: 0.8, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ duration: 0.3 }} 
+      className="bg-[#1C2541] p-6 rounded-xl w-100 text-white">
 
         <h2 className="text-xl font-semibold mb-4">
           Add Transaction
@@ -122,7 +130,9 @@ export default function ExpenseModal({ open, onClose, onSubmit, loading, initial
         {/* BUTTONS */}
         <div className="flex gap-2">
           
-          <button
+          <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
             disabled={loading}
             className="bg-blue-500 hover:bg-blue-600 flex-1 py-2 rounded"
           >
@@ -133,19 +143,21 @@ export default function ExpenseModal({ open, onClose, onSubmit, loading, initial
             : initialData
             ? "Update Transaction"
             : "Add Transaction"}
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
             onClick={onClose}
             className="bg-red-500 hover:bg-red-600 flex-1 py-2 rounded"
           >
             Cancel
-          </button>
+          </motion.button>
           
 
         </div>
         </form>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

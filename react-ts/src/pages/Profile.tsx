@@ -3,6 +3,7 @@ import { DeleteProfile, GetProfile, UpdateProfile } from "../api/userApi";
 import Success from "../components/Modals/Success";
 import Error from "../components/Modals/Error";
 import Sidebar from "../components/Sidebar";
+import { PageLoading } from "../components/Animations/Animation";
 
 export default function Profile() {
   const [user, setUser] = useState<any>(null);
@@ -83,10 +84,10 @@ export default function Profile() {
   if (!user) return <p>Loading...</p>;
 
   return (
-    <div className="flex min-h-screen bg-[#0B132B] text-gray-200">
+    <PageLoading className="flex min-h-screen bg-[#0B132B] text-gray-200">
       <Sidebar/>
    
-    <div className="flex-1 p-8 font-semibold">
+    <div className="flex-1 p-8 ml-64 font-semibold">
       <h2 className="text-2xl font-semibold mb-6">Profile</h2>
 
       {!editing ? (
@@ -164,6 +165,6 @@ export default function Profile() {
         </form>
       )}
     </div>
-     </div>
+     </PageLoading>
   );
 }

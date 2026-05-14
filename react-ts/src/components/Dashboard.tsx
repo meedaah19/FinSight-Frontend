@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { GetInsights } from "../api/controllerApi";
 import Error from "./Modals/Error";
 import Summary from "./Summary";
+import { Reveal, RevealGroup, RevealItem } from "./Animations/Animation";
 
 export default function DashboardOverview() {
   const [insight, setInsight] = useState<any>(null);
@@ -25,45 +26,56 @@ export default function DashboardOverview() {
   }
 
   return (
-    <main className="flex-1 p-8 text-gray-200">
+    <main className="flex-1 p-8 ml-64 text-gray-200">
       <h2 className="text-2xl font-semibold mb-6">
         Dashboard Overview
       </h2>
 
       {/* summary cards */}
-      <div className="grid grid-cols-4 gap-4 mb-8">
+      <RevealGroup className="grid grid-cols-4 gap-4 mb-8">
         {error && <Error title="Error" description={error} />}
         
-        <div className="bg-[#1C2541] p-4 rounded-lg">
-          <h3>Income</h3>
-          <p>₦{insight.summary.totalIncome}</p>
-        </div>
+        <RevealItem>
+          <div className="bg-[#1C2541] p-4 rounded-lg">
+            <h3>Income</h3>
+            <p>₦{insight.summary.totalIncome}</p>
+          </div>
+        </RevealItem>
 
-        <div className="bg-[#1C2541] p-4 rounded-lg">
-          <h3>Expense</h3>
-          <p>₦{insight.summary.totalExpense}</p>
-        </div>
+        <RevealItem>
+          <div className="bg-[#1C2541] p-4 rounded-lg">
+            <h3>Expense</h3>
+            <p>₦{insight.summary.totalExpense}</p>
+          </div>
+        </RevealItem>
 
-        <div className="bg-[#1C2541] p-4 rounded-lg">
-          <h3>Assets</h3>
-          <p>₦{insight.summary.totalAssets}</p>
-        </div>
+        <RevealItem>
+          <div className="bg-[#1C2541] p-4 rounded-lg">
+            <h3>Assets</h3>
+            <p>₦{insight.summary.totalAssets}</p>
+          </div>
+        </RevealItem>
 
-        <div className="bg-[#1C2541] p-4 rounded-lg">
-          <h3>Balance</h3>
-          <p>₦{insight.summary.balance}</p>
-        </div>
-      </div>
+        <RevealItem>
+          <div className="bg-[#1C2541] p-4 rounded-lg">
+            <h3>Balance</h3>
+            <p>₦{insight.summary.balance}</p>
+          </div>
+        </RevealItem>
+      </RevealGroup>
 
       {/* ratios */}
+      <Reveal delay={0.3}>
       <div className="bg-[#1C2541] p-6 rounded-lg mb-8">
         <h3 className="text-xl mb-4">Ratios</h3>
         <p>Spent: {insight.ratios.spent}</p>
         <p>Invested: {insight.ratios.invested}</p>
         <p>Saved: {insight.ratios.saved}</p>
       </div>
+      </Reveal>
 
       {/* insights */}
+      <Reveal delay={0.6}>
       <div className="bg-[#1C2541] p-6 rounded-lg">
         <h3 className="text-xl mb-4">Insights</h3>
 
@@ -86,8 +98,11 @@ export default function DashboardOverview() {
         ))}
       </ul>
       </div>
+      </Reveal>
 
-      <Summary/>
+        <Reveal delay={0.6}>
+        <Summary/>
+        </Reveal>
     </main>
   );
 }
