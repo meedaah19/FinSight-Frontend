@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import {forgotPassword, login} from "../api/userApi";
+import {forgotPassword } from "../api/userApi";
 import Error from "../components/Modals/Error";
 import Success from "../components/Modals/Success";
 import { PageLoading } from "../components/Animations/Animation";

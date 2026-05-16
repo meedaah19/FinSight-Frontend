@@ -4,10 +4,8 @@ import Success from "../components/Modals/Success";
 import Error from "../components/Modals/Error";
 import Sidebar from "../components/Sidebar";
 import { PageLoading } from "../components/Animations/Animation";
-import { Link, useNavigate } from "react-router-dom";
 
 export default function Profile() {
-  const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -102,7 +100,7 @@ export default function Profile() {
     }
   })
 
-  if (!user) return <p>Loading...</p>;
+  if (!user) return <p className="text-gray-200 p-8 md:ml-64">Loading...</p>;
 
   return (
     <PageLoading className="flex min-h-screen bg-[#0B132B] text-gray-200">

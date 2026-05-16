@@ -22,7 +22,7 @@ export default function DashboardOverview() {
   }, []);
 
   if (!insight) {
-    return <p className="text-gray-200 p-8">Loading insights...</p>;
+    return <p className="text-gray-200 p-8  md:ml-64">Loading insights...</p>;
   }
 
   return (
