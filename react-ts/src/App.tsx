@@ -9,6 +9,8 @@ import Expenses from "./pages/Expenses";
 import Profile from "./pages/Profile";
 import Analytics from "./pages/Analytics";
 import AuthCheck from "./auth/AuthCheck";
+import ForgotPassword from "./auth/ForgotPassword";
+import ResetPassword from "./auth/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,14 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login/>,
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPassword/>,
+      },
+      {
+        path: "reset-password/:token",
+        element: <ResetPassword/>
       },
       {
         element: <AuthCheck/>,

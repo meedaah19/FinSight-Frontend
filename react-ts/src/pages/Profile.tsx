@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { DeleteProfile, GetProfile, UpdateProfile } from "../api/userApi";
+import { ChangePassword, DeleteProfile, GetProfile, UpdateProfile } from "../api/userApi";
 import Success from "../components/Modals/Success";
 import Error from "../components/Modals/Error";
 import Sidebar from "../components/Sidebar";
 import { PageLoading } from "../components/Animations/Animation";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Profile() {
+  const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -18,6 +20,25 @@ export default function Profile() {
     phoneNumber: "",
     budget: "",
   });
+
+  const [passwordForm, setPasswordForm] = useState({
+    currentPassword: "",
+    newPassword: "",
+  });
+
+  const handleChangePassword = async () => {
+    try {
+      const result = await ChangePassword(passwordForm);
+      setSuccess(result.message || "Password changed successfully");
+
+      setPasswordForm({
+        currentPassword: "",
+        newPassword: "",
+      });
+    } catch (error: any) {
+      setError(error.message || "Error changing password");
+    }
+  };
 
   const fetchProfile = async () => {
     const data = await GetProfile();
@@ -88,7 +109,7 @@ export default function Profile() {
       <Sidebar/>
    
     <div className="flex-1 p-4 md:p-8 md:ml-64 font-semibold w-full overflow-x-hidden">
-      <h2 className="text-2xl font-semibold mb-6">Profile</h2>
+      <h2 className="text-2xl font-semibold mb-6 mt-4 md:mt-0">Profile</h2>
 
       {!editing ? (
         <div className="bg-[#1C2541] p-4 rounded-lg ">
@@ -117,8 +138,46 @@ export default function Profile() {
                 {loading ? "Deleting..." : "Delete Account"}
             </button>
             </div>
-          
+
+            <div className="bg-[#1C2541] p-6 rounded-lg mt-8">
+              <h3 className="text-xl mb-4">Change Password</h3>
+
+              <input
+                type="password"
+                placeholder="Current Password"
+                className="w-full p-2 mb-3 bg-[#0B132B] rounded"
+                value={passwordForm.currentPassword}
+                onChange={(e) =>
+                  setPasswordForm({
+                    ...passwordForm,
+                    currentPassword: e.target.value
+                  })
+                }
+              />
+
+              <input
+                type="password"
+                placeholder="New Password"
+                className="w-full p-2 mb-3 bg-[#0B132B] rounded"
+                value={passwordForm.newPassword}
+                onChange={(e) =>
+                  setPasswordForm({
+                    ...passwordForm,
+                    newPassword: e.target.value
+                  })
+                }
+              />
+
+              <button
+                onClick={handleChangePassword}
+                className="bg-blue-500 px-4 py-2 rounded"
+              >
+                {loading ? "Updating..." : "Change Password"}
+              </button>
+            </div>
         </div>
+
+
       ) : (
         <form
           onSubmit={handleSubmit}

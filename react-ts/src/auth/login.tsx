@@ -119,6 +119,8 @@ export default function Login() {
           Don't have an account? <Link to="/Signup" className="text-green-500 hover:text-green-600">Sign Up</Link>
         </p>
 
+        <p className="text-sm text-center mt-4 text-gray-300">Forget your password? <Link to="/forgot-password" className="text-green-500 hover:text-green-600">Reset it</Link></p>
+
       </motion.div>
 
     </PageLoading>

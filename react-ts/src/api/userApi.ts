@@ -135,3 +135,50 @@ export async function Logout() {
 
     return data;
 }
+
+export async function forgotPassword(email: string) {
+    const response = await fetch(`${API_BASE_URL}/forgot-password`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email })
+    });
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.error || data.message || "Failed to send reset password email");
+    }
+    return data;
+}
+
+export async function resetPassword(token: string, newPassword: string) {
+    const response = await fetch(`${API_BASE_URL}/reset-password/${token}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ newPassword })
+    });
+    const data = await response.json();     
+    if (!response.ok) {
+        throw new Error(data.error || data.message || "Failed to reset password");
+    }
+    return data;
+}
+
+export async function ChangePassword(data: any) {
+  const response = await fetch(
+    `${API_BASE_URL}/change-password`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:
+          `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(data),
+    }
+  );
+
+  return response.json();
+}

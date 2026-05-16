@@ -69,8 +69,8 @@ export default function Sidebar() {
         {success && <Success title="Success" description={success} />}
         {error && <Error title="Error" description={error} />}
         {warning && <Error title="Warning" description={warning} />}
-        <div className="md:hidden flex flex-col gap-2 p-4 bg-[#1C2541] text-white">
-        <h1 className="text-md  font-bold">Smart <br /> Expense</h1>
+        <div className="md:hidden flex flex-col gap-2 p-2 bg-[#1C2541] text-white">
+        {/* <h1 className="text-md  font-bold">FinSight</h1> */}
 
         <button onClick={() => setMenuOpen(true)}>
             <Menu size={20} />
@@ -96,7 +96,7 @@ export default function Sidebar() {
             </button>
             </div>
             <h1 className="text-xl font-bold text-white">
-            Smart Expense
+             FinSight
             </h1>
 
             <nav className="flex flex-col gap-4">
@@ -117,7 +117,7 @@ export default function Sidebar() {
             <button 
             onClick={() => {navigate("/dashboard/expenses"); setMenuOpen(false);}}
             className="text-left hover:text-blue-400">
-                Expenses
+                Transactions
             </button>
 
             <button 
@@ -131,7 +131,7 @@ export default function Sidebar() {
             whileTap={{ scale: 0.95 }} 
             onClick={() => { setOpen(true); setMenuOpen(false); }}
             className="mt-auto bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg">
-            + Add Expense
+            + Add Transaction
             </motion.button>
             <button
             onClick={() => { handleLogout(); setMenuOpen(false); }}

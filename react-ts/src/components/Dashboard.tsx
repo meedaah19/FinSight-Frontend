@@ -27,7 +27,7 @@ export default function DashboardOverview() {
 
   return (
     <main className="flex-1 py-4 px-2 md:p-8 md:ml-64 text-gray-200 w-full overflow-x-hidden">
-      <h2 className="text-2xl font-semibold mb-6">
+      <h2 className="text-2xl font-semibold mb-6 mt-4 md:mt-0">
         Dashboard Overview
       </h2>
 

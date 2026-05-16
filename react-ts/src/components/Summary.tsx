@@ -52,11 +52,13 @@ export default function Summary() {
         </button>
       </div>
 
+      <div className= "flex flex-col gap-2">
       <p>Income: ₦{summary.totalIncome}</p>
       <p>Expense: ₦{summary.totalExpense}</p>
       <p>Assets: ₦{summary.totalAssets}</p>
       <p>Balance: ₦{summary.balance}</p>
       <p>Budget: ₦{summary.budget}</p>
+      </div>
 
       <div
         className={`p-4 rounded-lg mt-4 ${
