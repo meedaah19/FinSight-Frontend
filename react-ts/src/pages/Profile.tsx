@@ -4,8 +4,10 @@ import Success from "../components/Modals/Success";
 import Error from "../components/Modals/Error";
 import Sidebar from "../components/Sidebar";
 import { PageLoading } from "../components/Animations/Animation";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
+  const navigate = useNavigate()
   const [user, setUser] = useState<any>(null);
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -63,8 +65,11 @@ export default function Profile() {
       const result = await UpdateProfile(form);
 
       setEditing(false);
-      fetchProfile();
+
       setSuccess(result.message || "Profile updated successfully");
+
+      navigate(0)
+      fetchProfile();
     } catch (error: any) {
       setError(error.message || "Error updating profile");
     } finally {
@@ -92,6 +97,7 @@ export default function Profile() {
   useEffect(() => {
     if (success || error ) {
         const timer = setTimeout(() => {
+          navigate('#')
         setSuccess(null);
         setError(null);
         }, 3000);
@@ -186,6 +192,7 @@ export default function Profile() {
           <input
             className="w-full p-2 bg-[#0B132B] rounded"
             name="name"
+            placeholder="Name"
             value={form.name || ""}
             onChange={(e) =>
               setForm({ ...form, name: e.target.value })
@@ -195,6 +202,7 @@ export default function Profile() {
           <input
             className="w-full p-2 bg-[#0B132B] rounded"
             name="email"
+            placeholder="Email"
             value={form.email || ""}
             onChange={(e) =>
               setForm({ ...form, email: e.target.value })
@@ -204,6 +212,7 @@ export default function Profile() {
           <input
             className="w-full p-2 bg-[#0B132B] rounded"
             name="phoneNumber"
+            placeholder="PhoneNumber"
             value={form.phoneNumber || ""}
             onChange={(e) =>
               setForm({ ...form, phoneNumber: e.target.value })
@@ -213,6 +222,7 @@ export default function Profile() {
           <input
             className="w-full p-2 bg-[#0B132B] rounded"
             name="budget"
+            placeholder="Your budget"
             value={form.budget || ""}
             onChange={(e) =>
               setForm({ ...form, budget: e.target.value })
