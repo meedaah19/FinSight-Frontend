@@ -11,7 +11,7 @@ export default function AuthCheck() {
       localStorage.removeItem("token");
       localStorage.removeItem("tokenExpiry");
 
-      navigate("/login");
+      navigate("/login", { replace: true });
     }
   }, [navigate]);
 

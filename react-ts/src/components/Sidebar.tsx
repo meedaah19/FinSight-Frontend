@@ -43,7 +43,7 @@ export default function Sidebar() {
             const result = await Logout();
              setSuccess(result.message || "Logged out successfully");
 
-            navigate("/login");
+             navigate("/login", { replace: true });
         } catch (err: any) {
             setError(err.message || "Error during logout");
         } finally {
