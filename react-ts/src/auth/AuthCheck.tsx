@@ -5,9 +5,10 @@ export default function AuthCheck() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
     const tokenExpiry = localStorage.getItem("tokenExpiry");
 
-    if (tokenExpiry && Date.now() > Number(tokenExpiry)) {
+    if (!token || !tokenExpiry || Date.now() > Number(tokenExpiry)) {
       localStorage.removeItem("token");
       localStorage.removeItem("tokenExpiry");
 
