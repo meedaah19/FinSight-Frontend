@@ -1,7 +1,6 @@
 
 ---
 
-```md
 # Finsight Frontend
 
 Finsight is a personal finance tracking web application that helps users monitor expenses, analyze spending habits, and gain financial insights through interactive dashboards.
