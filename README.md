@@ -1,10 +1,6 @@
 
 ---
 
-# Frontend README (`finsight-frontend`)
-
-Use this in your frontend repo `README.md`:
-
 ```md
 # Finsight Frontend
 
@@ -58,6 +54,7 @@ Run locally
 npm run dev
 
  ```
+--- 
 
 ## Key Pages
 - Home Page
@@ -69,9 +66,13 @@ npm run dev
 - Expenses
 - Analytics
 - Profile 
+ 
+ --- 
 
 ## Deployment
 Frontend deployed on Vercel.
+
+--- 
 
 ## Author
 Built by Hameedat
