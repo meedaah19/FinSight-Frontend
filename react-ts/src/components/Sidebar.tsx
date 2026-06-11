@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ExpenseModal from "./Modals/ExpenseModal";
 import { CreateExpense } from "../api/expenseApi";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Success from "./Modals/Success";
 import Error from "./Modals/Error";
 import { Logout } from "../api/userApi";
@@ -101,31 +101,32 @@ export default function Sidebar() {
 
             <nav className="flex flex-col gap-4">
 
-            <button 
-            onClick={() => {navigate("/dashboard"); setMenuOpen(false);}}
-            
-            className="text-left hover:text-blue-400">
+            <NavLink to="/dashboard" className={({ isActive }) => 
+                `text-left hover:text-blue-400 ${isActive ? "text-blue-400 font-semibold" : ""}`
+            }>
                 Overview
-            </button>
 
-             <button 
-            onClick={() => {navigate("/dashboard/profile"); setMenuOpen(false);}}
-            className="text-left hover:text-blue-400">
+            </NavLink>
+
+            <NavLink to="/dashboard/profile" className={({ isActive }) => 
+                `text-left hover:text-blue-400 ${isActive ? "text-blue-400 font-semibold" : ""}`
+            }>
                 Profile
-            </button>
+            </NavLink>
 
-            <button 
-            onClick={() => {navigate("/dashboard/expenses"); setMenuOpen(false);}}
-            className="text-left hover:text-blue-400">
+            <NavLink to="/dashboard/expenses" className={({ isActive }) => 
+                `text-left hover:text-blue-400 ${isActive ? "text-blue-400 font-semibold" : ""}`
+            }>
                 Transactions
-            </button>
+            </NavLink>
 
-            <button 
-            onClick={() => {navigate("/dashboard/analytics"); setMenuOpen(false);}}
-            className="text-left hover:text-blue-400">
+            <NavLink to="/dashboard/analytics" className={({ isActive }) => 
+                `text-left hover:text-blue-400 ${isActive ? "text-blue-400 font-semibold" : ""}`
+            }>
                 Analytics
-            </button>
+            </NavLink>
             </nav>
+            
             <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }} 
