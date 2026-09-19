@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import {signup} from "../api/userApi";
-import Success from "../components/Modals/Success";
 import Error from "../components/Modals/Error";
 import { PageLoading } from "../components/Animations/Animation";
 
@@ -10,7 +9,6 @@ import { PageLoading } from "../components/Animations/Animation";
 export default function SignUp() {
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
   const[enterValue, setEnterValue] = useState({
       name: "",
@@ -27,12 +25,18 @@ export default function SignUp() {
       try{
           setFetching(true);
           const result = await signup({ name, email, password });
-          setSuccess((result as any).message || "Signup successful!");
+
           setEnterValue({
           name: "",
           email: "",
           password: "",
-      })      
+           })  
+
+          navigate("/login", {
+            state: {
+              success: (result as any).message || "Signup successful!",
+            },
+          });        
       }catch(error: any){
           setError(error?.message || "Something went wrong");
       } finally {
@@ -41,18 +45,6 @@ export default function SignUp() {
   }
 
   useEffect(() => {
-  if (success) {
-    const timer = setTimeout(() => {
-      setSuccess(null);
-
-      // 🚀 redirect after alert
-      navigate("/dashboard");
-
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }
-
   if (error) {
     const timer = setTimeout(() => {
       setError(null);
@@ -60,7 +52,7 @@ export default function SignUp() {
 
     return () => clearTimeout(timer);
   }
-}, [success, error, navigate]);
+}, [error, navigate]);
 
   return (
     <PageLoading className="min-h-screen flex items-center justify-center px-4">
@@ -69,13 +61,6 @@ export default function SignUp() {
         <Error
           title="Error"
           description={error}
-        />
-      )}
-
-      {success && (
-        <Success
-          title="Success"
-          description={success}
         />
       )}
 

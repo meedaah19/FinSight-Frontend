@@ -5,48 +5,66 @@ import {login} from "../api/userApi";
 import Error from "../components/Modals/Error";
 import Success from "../components/Modals/Success";
 import { PageLoading } from "../components/Animations/Animation";
+import { useLocation } from "react-router";
 
 export default function Login() {
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
   const [enteredValue, setEnteredValue] = useState({
   email: '',
   password: ''
   })
   const [fetching, setFetching] = useState(false);
-
-  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) =>{
-  e.preventDefault()
-  const email = enteredValue.email;
-  const password = enteredValue.password;
-
-  try {
-    setFetching(true)
-    const result = await login({email, password, Date})
-          setSuccess((result as any).message || "Login successful!");
-            setEnteredValue({
-            email: "",
-            password: "",
-        })
-        }catch(error: any){
-          setError(error?.message || "Something went wrong");
-        } finally {
-            setFetching(false);
-        }
-  }
+  const location = useLocation();
+  const [success, setSuccess] = useState<string | null>(
+    location.state?.success || null
+  );
 
   useEffect(() => {
-  if (success) {
-    const timer = setTimeout(() => {
-      setSuccess(null);
+    if (success) {
+      const timer = setTimeout(() => {
+        setSuccess(null);
 
-      navigate("/dashboard");
+        // Clear the navigation state so refreshing doesn't show it again
+        window.history.replaceState({}, document.title);
+      }, 3000);
 
-    }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [success]);
 
-    return () => clearTimeout(timer);
-  }
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const email = enteredValue.email;
+    const password = enteredValue.password;
+
+    try {
+      setFetching(true);
+
+      const result = await login({ email, password, Date });
+
+      setEnteredValue({
+        email: "",
+        password: "",
+      });
+
+      navigate("/dashboard", {
+        state: {
+          success: (result as any).message || "Login successful!",
+        },
+      });
+
+    } catch (error: any) {
+      setError(error?.message || "Something went wrong");
+    } finally {
+      setFetching(false);
+    }
+  };
+
+
+
+  useEffect(() => {
 
   if (error) {
     const timer = setTimeout(() => {
